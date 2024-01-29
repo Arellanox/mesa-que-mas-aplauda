@@ -48,18 +48,18 @@
 </head>
 <body>
   <div class="container">
-    <h1>Asignación de Mesas</h1>
+    <h1>¡Descubre tu mesa!</h1>
     <form id="searchForm">
       <label for="phoneNumber">Ingrese su número de teléfono:</label>
       <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
       <button type="button" onclick="searchTable()">Buscar Mesa</button>
     </form>
-    <p id="result"></p>
+    <div id="result"></div>
 
     <script>
       function searchTable() {
         var phoneNumber = document.getElementById('phoneNumber').value;
-        var tableData = '{
+        var tableData = JSON.parse(`{
   "9936681949": {
     "mesa": "Mesa 3",
     "personas": [
@@ -260,15 +260,21 @@
       {"nombre": "Nayeli"}
     ]
   }
-}
-';
+}`);
+
+var resultContainer = document.getElementById('result');
+        var formContainer = document.getElementById('searchForm');
 
         if (tableData.hasOwnProperty(phoneNumber)) {
           var mesa = tableData[phoneNumber].mesa;
-          document.getElementById('result').innerText = 'Te corresponde la mesa: ' + mesa;
+          resultContainer.innerHTML = '<h2>¡Enhorabuena!</h2><p style="color: green; font-size: 24px; margin-bottom: 10px;">Te corresponde la mesa: ' + mesa + '</p>';
         } else {
-          document.getElementById('result').innerText = 'Número de teléfono no encontrado.';
+          resultContainer.innerHTML = '<p style="color: red; font-size: 18px; margin-top: 10px;">Número de teléfono no encontrado.</p>';
         }
+
+        // Ocultar el formulario y mostrar el resultado
+        formContainer.style.display = 'none';
+        resultContainer.style.display = 'block';
       }
     </script>
   </div>
