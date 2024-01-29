@@ -1,73 +1,276 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descubre Tu Mesa</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 100px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        input[type="tel"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asignación de Mesas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    input {
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 200px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Descubre Tu Mesa</h1>
-        <form id="tableForm">
-            <input type="tel" id="phoneNumber" placeholder="Ingresa tu número de teléfono" required>
-            <br>
-            <input type="submit" value="Descubrir">
-        </form>
-    </div>
+  <div class="container">
+    <h1>Asignación de Mesas</h1>
+    <form id="searchForm">
+      <label for="phoneNumber">Ingrese su número de teléfono:</label>
+      <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
+      <button type="button" onclick="searchTable()">Buscar Mesa</button>
+    </form>
+    <p id="result"></p>
 
     <script>
-        document.getElementById("tableForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            var phoneNumber = document.getElementById("phoneNumber").value;
-            alert("¡Gracias por descubrir tu mesa!\nNúmero de teléfono: " + phoneNumber);
-            // Aquí puedes enviar la información del formulario a tu servidor si es necesario.
-        });
+      function searchTable() {
+        var phoneNumber = document.getElementById('phoneNumber').value;
+        var tableData = '{
+  "9936681949": {
+    "mesa": "Mesa 3",
+    "personas": [
+      {"nombre": "ELIZABETH"},
+      {"nombre": "JENNYFER"},
+      {"nombre": "JUAN BARRAGAN"},
+      {"nombre": "AYTANA"},
+      {"nombre": "SUEGRO JENNYFER"},
+      {"nombre": "SUEGRA JENNYFER"},
+      {"nombre": "FRANCO"}
+    ]
+  },
+  "9931686123": {
+    "mesa": "Mesa 1",
+    "personas": [
+      {"nombre": "JUAN CARLOS CARRERA"},
+      {"nombre": "LOLI"},
+      {"nombre": "CAROLIA"},
+      {"nombre": "TIO TETO"},
+      {"nombre": "MONSERRAT"}
+    ]
+  },
+  "9932294643": {
+    "mesa": "Mesa 1",
+    "personas": [
+      {"nombre": "TIO TETO"}
+    ]
+  },
+  "9931333322": {
+    "mesa": "Mesa 3",
+    "personas": [
+      {"nombre": "TIA RAKEL"},
+      {"nombre": "TIO ALBERTO"},
+      {"nombre": "NATHALIE"},
+      {"nombre": "ABUELA"},
+      {"nombre": "NAZLY"}
+    ]
+  },
+  "9933447073": {
+    "mesa": "Mesa 6",
+    "personas": [
+      {"nombre": "CHUCHIN"}
+    ]
+  },
+  "9981438669": {
+    "mesa": "Mesa 6",
+    "personas": [
+      {"nombre": "TIA CARO"},
+      {"nombre": "TIO JORGE"},
+      {"nombre": "KEVIN"},
+      {"nombre": "LINDA"},
+      {"nombre": "MIA"},
+      {"nombre": "HADASHA"}
+    ]
+  },
+  "9931637169": {
+    "mesa": "Mesa 3",
+    "personas": [
+      {"nombre": "JENNYFER"}
+    ]
+  },
+  "9171139478": {
+    "mesa": "Mesa 3",
+    "personas": [
+      {"nombre": "JUAN BARRAGAN"},
+      {"nombre": "AYTANA"},
+      {"nombre": "SUEGRO JENNYFER"},
+      {"nombre": "SUEGRA JENNYFER"}
+    ]
+  },
+  "9933183108": {
+    "mesa": "Mesa 6",
+    "personas": [
+      {"nombre": "JUAN CARLOS HERMANO"}
+    ]
+  },
+  "9931217432": {
+    "mesa": "Mesa 2",
+    "personas": [
+      {"nombre": "ANTONIA"},
+      {"nombre": "JAIME"},
+      {"nombre": "ROBERTO"},
+      {"nombre": "NAOMI"},
+      {"nombre": "OMAR"},
+      {"nombre": "TIA TAVI"},
+      {"nombre": "ZURI"},
+      {"nombre": "MATEO"},
+      {"nombre": "Nayeli"}
+    ]
+  },
+  "9934611834": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "CANDY"}
+    ]
+  },
+  "9931273860": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "ESTEFANIA"},
+      {"nombre": "PAPA FANI"},
+      {"nombre": "MAMA FANI"}
+    ]
+  },
+  "9934579419": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "VICTOR"}
+    ]
+  },
+  "9932762926": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "CARLOS"}
+    ]
+  },
+  "9932974865": {
+    "mesa": "Mesa 4",
+    "personas": [
+      {"nombre": "CHUCHO"},
+      {"nombre": "JOCELYN"}
+    ]
+  },
+  "9932330831": {
+    "mesa": "Mesa 4",
+    "personas": [
+      {"nombre": "VICTOR"},
+      {"nombre": "JENIFER"},
+      {"nombre": "NOVIO VICTOR"}
+    ]
+  },
+  "9931162348": {
+    "mesa": "Mesa 4",
+    "personas": [
+      {"nombre": "LINDA PEREYRA"},
+      {"nombre": "MANUEL"}
+    ]
+  },
+  "9931686875": {
+    "mesa": "Mesa 1",
+    "personas": [
+      {"nombre": "TIA SILVIA"},
+      {"nombre": "LUPITA"},
+      {"nombre": "MAMA TIA"}
+    ]
+  },
+  "9933406277": {
+    "mesa": "Mesa 1",
+    "personas": [
+      {"nombre": "GARY"}
+    ]
+  },
+  "9341276959": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "JOSUE"}
+    ]
+  },
+  "9932320715": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "ENOC"}
+    ]
+  },
+  "9932303877": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "NERY"}
+    ]
+  },
+  "9934503593": {
+    "mesa": "Mesa 6",
+    "personas": [
+      {"nombre": "HADASHA"}
+    ]
+  },
+  "9931173268": {
+    "mesa": "Mesa 5",
+    "personas": [
+      {"nombre": "AURORA"}
+    ]
+  },
+  "9936681949": {
+    "mesa": "Mesa 3",
+    "personas": [
+      {"nombre": "FRANCO"}
+    ]
+  },
+  "9932251637": {
+    "mesa": "Mesa 4",
+    "personas": [
+      {"nombre": "Joseline Perez"}
+    ]
+  },
+  "9935938096": {
+    "mesa": "Mesa 2",
+    "personas": [
+      {"nombre": "Nayeli"}
+    ]
+  }
+}
+';
+
+        if (tableData.hasOwnProperty(phoneNumber)) {
+          var mesa = tableData[phoneNumber].mesa;
+          document.getElementById('result').innerText = 'Te corresponde la mesa: ' + mesa;
+        } else {
+          document.getElementById('result').innerText = 'Número de teléfono no encontrado.';
+        }
+      }
     </script>
+  </div>
 </body>
 </html>
